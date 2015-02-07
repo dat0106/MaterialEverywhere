@@ -26,7 +26,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
+
+//import com.squareup.picasso.Picasso;
 
 
 public class DetailActivity extends BaseActivity {
@@ -35,11 +39,17 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        supportPostponeEnterTransition();
         super.onCreate(savedInstanceState);
 
         ImageView image = (ImageView) findViewById(R.id.image);
         ViewCompat.setTransitionName(image, EXTRA_IMAGE);
-        Picasso.with(this).load(getIntent().getStringExtra(EXTRA_IMAGE)).into(image);
+        //Picasso.with(this).load(getIntent().getStringExtra(EXTRA_IMAGE)).into(image);
+        Ion.with(this).load(getIntent().getStringExtra(EXTRA_IMAGE)).intoImageView(image).setCallback(new FutureCallback<ImageView>() {
+            @Override public void onCompleted(Exception e, ImageView result) {
+                supportStartPostponedEnterTransition();
+            }
+        });
     }
 
     @Override protected int getLayoutResource() {
