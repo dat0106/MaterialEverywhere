@@ -22,28 +22,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"/>
-
-        <GridView
-            android:id="@+id/gridView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:padding="4dp"
-            android:clipToPadding="false"
-            android:columnWidth="@dimen/item_width"
-            android:numColumns="auto_fit"
-            android:horizontalSpacing="4dp"
-            android:verticalSpacing="4dp"
-            android:stretchMode="columnWidth"/>
+            android:layout_height="match_parent">
 
-    </RelativeLayout>
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"/>
+
+        </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:clipToPadding="false"
+                android:columnWidth="@dimen/item_width"
+                android:numColumns="auto_fit"
+                android:horizontalSpacing="4dp"
+                android:verticalSpacing="4dp"
+                android:stretchMode="columnWidth"/>
+        </FrameLayout>
+    </FrameLayout>
 
     <ListView
         android:layout_width="260dp"

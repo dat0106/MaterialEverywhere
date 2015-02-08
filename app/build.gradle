@@ -21,7 +21,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.antonioleiva.materialeverywhere"
+        applicationId "com.antonioleiva.materialeverywhere.view"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1

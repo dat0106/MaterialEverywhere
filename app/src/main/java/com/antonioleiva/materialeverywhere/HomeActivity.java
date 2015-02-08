@@ -18,6 +18,10 @@ package com.antonioleiva.materialeverywhere;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.transition.Scene;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,30 +37,55 @@ import android.widget.TextView;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
+import java.util.UUID;
+
 //import com.squareup.picasso.Picasso;
 
 
 public class HomeActivity extends BaseActivity {
 
     private DrawerLayout drawer;
+    private ViewGroup container;
+    public GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarIcon(R.drawable.ic_ab_drawer);
 
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(new GridViewAdapter());
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String url = (String) view.getTag();
-                DetailActivity.launch(HomeActivity.this, view.findViewById(R.id.image), url);
+                //DetailActivity.launch(HomeActivity.this, view.findViewById(R.id.image), url);
+                //DetailView v = (DetailView) getLayoutInflater().inflate(R.layout.view_detail, container, false);
+                //container.addView(v);
+                String uuid = UUID.randomUUID().toString();
+                DetailView.launch(HomeActivity.this, container, view, uuid, url);
             }
         });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer);
         drawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
+
+        container = (ViewGroup) findViewById(R.id.container);
+    }
+
+    public Transition inflateTransition(int id) {
+        return TransitionInflater.from(this).inflateTransition(id);
+    }
+
+    @Override public void onBackPressed() {
+        if (container.getChildAt(0) instanceof DetailView) {
+            //Scene scene = new Scene(container, gridView);
+            //TransitionManager.go(scene);
+            container.removeAllViews();
+            container.addView(gridView);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override protected int getLayoutResource() {
