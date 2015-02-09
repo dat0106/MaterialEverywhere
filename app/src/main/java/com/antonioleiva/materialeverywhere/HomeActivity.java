@@ -47,6 +47,7 @@ public class HomeActivity extends BaseActivity {
     private DrawerLayout drawer;
     private ViewGroup container;
     public GridView gridView;
+    public GridViewAdapter gridViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,8 @@ public class HomeActivity extends BaseActivity {
         setActionBarIcon(R.drawable.ic_ab_drawer);
 
         gridView = (GridView) findViewById(R.id.gridView);
-        gridView.setAdapter(new GridViewAdapter());
+        gridViewAdapter = new GridViewAdapter();
+        gridView.setAdapter(gridViewAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -63,7 +65,7 @@ public class HomeActivity extends BaseActivity {
                 //DetailView v = (DetailView) getLayoutInflater().inflate(R.layout.view_detail, container, false);
                 //container.addView(v);
                 String uuid = UUID.randomUUID().toString();
-                DetailView.launch(HomeActivity.this, container, view, uuid, url);
+                DetailView.launch(HomeActivity.this, container, view.findViewById(R.id.image), uuid, url);
             }
         });
 
@@ -83,6 +85,8 @@ public class HomeActivity extends BaseActivity {
             //TransitionManager.go(scene);
             container.removeAllViews();
             container.addView(gridView);
+            gridView.requestLayout();
+            gridViewAdapter.notifyDataSetChanged();
         } else {
             super.onBackPressed();
         }

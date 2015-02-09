@@ -3,6 +3,7 @@ package com.antonioleiva.materialeverywhere;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.transition.ChangeTransform;
 import android.transition.Fade;
 import android.transition.Scene;
 import android.transition.Transition;
@@ -42,8 +43,8 @@ public class DetailView extends RelativeLayout {
         fade.setDuration(2000);
         final TransitionSet set = new TransitionSet();
         //set.setOrdering(TransitionSet.ORDERING_SEQUENTIAL);
-        //set.addTransition(fade).addTransition(shared);
-        set.addTransition(shared).addTransition(fade);
+        set.addTransition(fade).addTransition(shared);
+        //set.addTransition(shared).addTransition(fade);
         Scene scene = new Scene(container, v);
 
         try {
